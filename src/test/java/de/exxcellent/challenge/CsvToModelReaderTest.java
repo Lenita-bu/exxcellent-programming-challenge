@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.model.FootballData;
 import de.exxcellent.challenge.model.WeatherData;
 import de.exxcellent.challenge.utilities.CsvToModelReader;
 import org.junit.jupiter.api.Test;
@@ -34,5 +35,19 @@ public class CsvToModelReaderTest {
 
         assertEquals(94, objects.get(11).getMaxRelativeHumidity());
         assertEquals(70.4, objects.get(25).getAverageDewPoint());
+    }
+    @Test
+    void testCsvParsingFootballFile() throws FileNotFoundException {
+        List<FootballData> objects = CsvToModelReader.readFootballData("football.csv");
+
+        assertNotNull(objects);
+        assertFalse(objects.isEmpty());
+        assertEquals(20, objects.size());
+
+        assertEquals(79, objects.get(0).getGoals());
+        assertEquals(36, objects.get(0).getGoalsAllowed());
+
+        assertEquals("Sunderland", objects.get(16).getTeam());
+
     }
 }
