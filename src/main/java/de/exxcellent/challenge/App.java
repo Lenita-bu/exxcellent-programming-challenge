@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analyzer.FootballAnalyzer;
 import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
 
 import java.io.FileNotFoundException;
@@ -32,8 +33,13 @@ public final class App {
                 }
                 break;
             case "--football":
-                String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
-                System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+                try {
+                    FootballAnalyzer analyzer = new FootballAnalyzer(fileName);
+                    String teamWithSmallestGoalSpread = analyzer.analyzeSmallestGoalSpread();
+                    System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+                } catch (FileNotFoundException e) {
+                    System.out.println(fileName+" not found");
+                }
                 break;
             default:
                 System.out.println("Unknown programme mode");

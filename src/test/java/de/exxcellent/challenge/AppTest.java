@@ -39,7 +39,13 @@ class AppTest {
     }
     @Test
     void runFootball() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         App.main("--football", "football.csv");
+
+        System.setOut(System.out);
+        assertTrue(outputStream.toString().contains("Team with smallest goal spread"));
     }
 
 }
