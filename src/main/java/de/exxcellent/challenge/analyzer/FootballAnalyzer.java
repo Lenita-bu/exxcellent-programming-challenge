@@ -2,6 +2,7 @@ package de.exxcellent.challenge.analyzer;
 
 import de.exxcellent.challenge.model.FootballData;
 import de.exxcellent.challenge.utilities.CsvToModelReader;
+import de.exxcellent.challenge.utilities.DataProcessor;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -15,15 +16,11 @@ public class FootballAnalyzer {
         this.footballDataList = footballDataList;
     }
     public String analyzeSmallestGoalSpread() {
-        int minDifference = footballDataList.get(0).getGoals() - footballDataList.get(0).getGoalsAllowed();
-        String teamWithSmallestGoalSpread = "";
-        for (FootballData element: footballDataList) {
-            int goalsDifference = Math.abs(element.getGoals() - element.getGoalsAllowed());
-            if (goalsDifference < minDifference) {
-                minDifference = goalsDifference;
-                teamWithSmallestGoalSpread = element.getTeam();
-            }
-        }
+        String teamWithSmallestGoalSpread = DataProcessor.getSmallestSpread(
+                footballDataList,
+                FootballData::getGoals,
+                FootballData::getGoalsAllowed,
+                FootballData::getTeam);
         return teamWithSmallestGoalSpread;
     }
 }

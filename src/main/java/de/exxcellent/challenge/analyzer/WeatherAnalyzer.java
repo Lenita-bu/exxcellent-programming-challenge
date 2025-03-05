@@ -2,6 +2,7 @@ package de.exxcellent.challenge.analyzer;
 
 import de.exxcellent.challenge.model.WeatherData;
 import de.exxcellent.challenge.utilities.CsvToModelReader;
+import de.exxcellent.challenge.utilities.DataProcessor;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -14,16 +15,12 @@ public class WeatherAnalyzer {
     public WeatherAnalyzer(List<WeatherData> weatherDataList) {
         this.weatherDataList = weatherDataList;
     }
-    public int analyzeSmallestTempSpread() {
-        int minSpread = weatherDataList.get(0).getMaximumTemperature() - weatherDataList.get(0).getMinimumTemperature();
-        int dayWithSmallestTempSpread = 0;
-        for (WeatherData element: weatherDataList) {
-            int tempSpread = element.getMaximumTemperature() - element.getMinimumTemperature();
-            if (tempSpread < minSpread) {
-                minSpread = tempSpread;
-                dayWithSmallestTempSpread = element.getDay();
-            }
-        }
+    public String analyzeSmallestTempSpread() {
+        String dayWithSmallestTempSpread = DataProcessor.getSmallestSpread(
+                weatherDataList,
+                WeatherData::getMaximumTemperature,
+                WeatherData::getMinimumTemperature,
+                weatherData -> Integer.toString(weatherData.getDay()));
         return dayWithSmallestTempSpread;
     }
 }

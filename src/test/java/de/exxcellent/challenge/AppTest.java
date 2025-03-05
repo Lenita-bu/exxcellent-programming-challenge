@@ -47,5 +47,15 @@ class AppTest {
         System.setOut(System.out);
         assertTrue(outputStream.toString().contains("Team with smallest goal spread"));
     }
+    @Test
+    void runDefault() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        App.main("--anything", "else");
+
+        System.setOut(System.out);
+        assertTrue(outputStream.toString().contains("Unknown programme mode"));
+    }
 
 }

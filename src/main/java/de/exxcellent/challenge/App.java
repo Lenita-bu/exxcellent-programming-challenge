@@ -18,6 +18,10 @@ public final class App {
      * @param args The CLI arguments passed
      */
     public static void main(String... args) {
+        if (args.length < 2) {
+            System.out.println("Error: Insufficient arguments provided");
+            System.exit(1);
+        }
 
         String programmeMode = args[0];
         String fileName = args[1];
@@ -26,7 +30,7 @@ public final class App {
             case "--weather":
                 try {
                     WeatherAnalyzer analyzer = new WeatherAnalyzer(fileName);
-                    int dayWithSmallestTempSpread = analyzer.analyzeSmallestTempSpread();
+                    String dayWithSmallestTempSpread = analyzer.analyzeSmallestTempSpread();
                     System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
                 } catch (FileNotFoundException e) {
                     System.out.println(fileName+" not found");
