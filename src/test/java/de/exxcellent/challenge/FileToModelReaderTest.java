@@ -2,7 +2,7 @@ package de.exxcellent.challenge;
 
 import de.exxcellent.challenge.model.FootballData;
 import de.exxcellent.challenge.model.WeatherData;
-import de.exxcellent.challenge.utilities.CsvToModelReader;
+import de.exxcellent.challenge.utilities.FileToModelReader;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CsvToModelReaderTest {
+public class FileToModelReaderTest {
     @Test
     void testCsvFileExists() {
         String weatherFilePath = "src/main/resources/de/exxcellent/challenge/weather.csv";
@@ -24,7 +24,7 @@ public class CsvToModelReaderTest {
 
     @Test
     void testCsvParsingWeatherFile() throws FileNotFoundException {
-        List<WeatherData> objects = CsvToModelReader.readWeatherData("weather.csv");
+        List<WeatherData> objects = FileToModelReader.readCsvData("weather.csv", WeatherData.class);
 
         assertNotNull(objects);
         assertFalse(objects.isEmpty());
@@ -38,7 +38,7 @@ public class CsvToModelReaderTest {
     }
     @Test
     void testCsvParsingFootballFile() throws FileNotFoundException {
-        List<FootballData> objects = CsvToModelReader.readFootballData("football.csv");
+        List<FootballData> objects = FileToModelReader.readCsvData("football.csv", FootballData.class);
 
         assertNotNull(objects);
         assertFalse(objects.isEmpty());
