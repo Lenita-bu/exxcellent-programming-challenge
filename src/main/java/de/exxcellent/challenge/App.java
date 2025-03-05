@@ -1,5 +1,9 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
+
+import java.io.FileNotFoundException;
+
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -14,12 +18,26 @@ public final class App {
      */
     public static void main(String... args) {
 
-        // Your preparation code …
+        String programmeMode = args[0];
+        String fileName = args[1];
 
-        String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
-        System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
+        switch (programmeMode) {
+            case "--weather":
+                try {
+                    WeatherAnalyzer analyzer = new WeatherAnalyzer(fileName);
+                    int dayWithSmallestTempSpread = analyzer.analyzeSmallestTempSpread();
+                    System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
+                } catch (FileNotFoundException e) {
+                    System.out.println(fileName+" not found");
+                }
+                break;
+            case "--football":
+                String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
+                System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+                break;
+            default:
+                System.out.println("Unknown programme mode");
+        }
 
-        String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
-        System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
 }
